@@ -1,0 +1,12 @@
+table {
+    border: 10px solid darkorange;
+}
+
+tbody {
+    visibility: visible;
+    transition: visibility 0.3s;
+}
+
+tbody:hover {
+    visibility: collapse;
+}
