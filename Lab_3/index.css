@@ -177,6 +177,17 @@ header {
     color: #A3A6A9;
 }
 
+.terminal {
+    background: linear-gradient(0deg, rgba(195,165,51,1) 0%, rgba(255,239,185,1) 100%);
+    width: 44px;
+    height: 44px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    position: absolute;
+    top: 20px;
+    left: 380px;
+}
+
 .code {
     margin-right: 0;
     background-color: #1E2933;
