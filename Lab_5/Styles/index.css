@@ -1,0 +1,26 @@
+.desktop {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+}
+
+#d1 {
+    background-color: green;
+    left: 0;
+}
+
+#d2 {
+    background-color: red;
+    left: -100vw;
+}
+
+#d3 {
+    background-color: blue;
+    left: -200vw;
+}
+
+#d4 {
+    background-color: yellow;
+    left: 100vw;
+}
