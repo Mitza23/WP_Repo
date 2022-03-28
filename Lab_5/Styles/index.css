@@ -24,3 +24,8 @@
     background-color: yellow;
     left: 100vw;
 }
+
+img {
+    width: 300px;
+    height: auto;
+}
