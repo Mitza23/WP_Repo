@@ -19,6 +19,8 @@ class Controller
 
     private $deleteStmt;
 
+    private $getAllStmt;
+
     /**
      * @param $servername
      * @param $username
@@ -31,15 +33,17 @@ class Controller
         $this->username = $username;
         $this->password = $password;
         $this->dbname = $dbname;
+        $this->prepareStatements();
     }
 
-
-    public function connect()
+    public function prepareStatements()
     {
-        $this->connection = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        if ($this->connection->connect_error) {
-            die("Connection failed: " . $this->connection->connect_error);
-        }
+//        $this->connection = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+//        if ($this->connection->connect_error) {
+//            die("Connection failed: " . $this->connection->connect_error);
+//        }
+
+        $this->connect();
 
         // Add book
         $this->addStmt = $this->connection->prepare(
@@ -76,6 +80,27 @@ class Controller
             "DELETE FROM Books where title=?"
         );
         $this->deleteStmt->bind_param("s", $this->bookTitle);
+
+        $this->getAllStmt = $this->connection->prepare(
+            "SELECT * FROM Books"
+        );
+
+//        $this->connection->close();
+
+        $this->disconnect();
+    }
+
+    private function connect()
+    {
+        $this->connection = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        if ($this->connection->connect_error) {
+            die("Connection failed: " . $this->connection->connect_error);
+        }
+    }
+
+    private function disconnect()
+    {
+        $this->connection->close();
     }
 
     public function addBook($title, $author, $genre, $pages)
@@ -92,7 +117,10 @@ class Controller
         $this->author = $author;
         $this->genre = $genre;
         $this->pages = $pages;
-        $this->addStmt->execute();
+        $this->connect();
+        $success = $this->addStmt->execute();
+        $this->disconnect();
+        return $success;
     }
 
     public function updateTitle($title, $newValue)
@@ -105,7 +133,9 @@ class Controller
 //        }
         $this->bookTitle = $title;
         $this->newValue = $newValue;
+        $this->connect();
         $this->updateTitleStmt->execute();
+        $this->disconnect();
     }
 
     public function updateAuthor($title, $newValue)
@@ -118,7 +148,9 @@ class Controller
 //        }
         $this->bookTitle = $title;
         $this->newValue = $newValue;
+        $this->connect();
         $this->updateAuthorStmt->execute();
+        $this->disconnect();
     }
 
     public function updateGenre($title, $newValue)
@@ -131,7 +163,9 @@ class Controller
 //        }
         $this->bookTitle = $title;
         $this->newValue = $newValue;
+        $this->connect();
         $this->updateGenreStmt->execute();
+        $this->disconnect();
     }
 
     public function updatePages($title, $newValue)
@@ -144,17 +178,24 @@ class Controller
 //        }
         $this->bookTitle = $title;
         $this->newValue = $newValue;
+        $this->connect();
         $this->updatePagesStmt->execute();
+        $this->disconnect();
     }
 
     public function deleteBook($title)
     {
         $this->bookTitle = $title;
+        $this->connect();
         $this->deleteStmt->execute();
+        $this->disconnect();
     }
 
     public function getAll()
     {
-
+        $this->connect();
+        $result = $this->getAllStmt->execute();
+        $this->disconnect();
+        return $result;
     }
 }

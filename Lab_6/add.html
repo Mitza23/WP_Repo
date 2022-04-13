@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Add</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
+
+    <a href="index.html">Back</a>
+
     <h1>Add a book</h1>
+
+    <form id="addForm">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title">
+        <label for="author">Author</label>
+        <input type="text" id="author" name="author">
+        <label for="genre">Genre</label>
+        <input type="text" id="genre" name="author">
+        <label for="pages">Pages</label>
+        <input type="number" id="pages" name="pages">
+        <input id="submitAdd" type="submit" value="Submit" onclick="submitForAdd(event)">
+    </form>
 </body>
 </html>
