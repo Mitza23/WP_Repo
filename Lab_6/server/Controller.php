@@ -29,12 +29,18 @@ class Controller
      */
     public function __construct($servername, $username, $password, $dbname)
     {
-        $this->servername = $servername;
-        $this->username = $username;
-        $this->password = $password;
-        $this->dbname = $dbname;
+//        $this->servername = $servername;
+//        $this->username = $username;
+//        $this->password = $password;
+//        $this->dbname = $dbname;
+        $this->servername = "localhost";
+        $this->username = "root";
+        $this->password = "";
+        $this->dbname = "wp_labs";
+
         $this->prepareStatements();
     }
+
 
     public function prepareStatements()
     {
