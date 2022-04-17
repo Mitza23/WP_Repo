@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+
+    <a href="index.html">Back</a>
+
+    <h1>Update a book</h1>
+
+    <form id="updateForm">
+        <label for="id">ID</label>
+        <input type="number" id="id" name="id">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title">
+        <label for="author">Author</label>
+        <input type="text" id="author" name="author">
+        <label for="genre">Genre</label>
+        <input type="text" id="genre" name="genre">
+        <label for="pages">Pages</label>
+        <input type="number" id="pages" name="pages">
+        <input id="submitAdd" type="submit" value="Submit" onclick="submitForUpdate(event)">
+    </form>
+</body>
+</html>

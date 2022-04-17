@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Lend</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
+
+    <a href="index.html">Back</a>
+
     <h1>Lend a book</h1>
+
+    <form id="lendForm">
+        <label for="id">ID</label>
+        <input type="number" id="id" name="ID">
+        <input id="submitLend" type="submit" value="Submit" onclick="submitForLending(event)">
+    </form>
+
+    <h1>Renturn a book</h1>
+
+    <form id="returnForm">
+        <label for="id">ID</label>
+        <input type="number" id="idReturn" name="ID">
+        <input id="submitReturn" type="submit" value="Submit" onclick="submitForReturn(event)">
+    </form>
 </body>
 </html>

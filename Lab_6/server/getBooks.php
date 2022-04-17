@@ -1,7 +1,7 @@
 <?php
-    include 'Controller.php';
+    require 'Controller.php';
 
-    $controller = new Controller("", "", "", "");
+//    $controller = new Controller("", "", "", "");
 
     $result = $controller->getAll();
 
