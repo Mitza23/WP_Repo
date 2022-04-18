@@ -131,6 +131,66 @@ function submitForAdd(event) {
     }
 }
 
+let filterQuery = ''
+
+function filterBooks(event) {
+    event.preventDefault();
+
+    let attribute = $("#attribute").val();
+    let value = $("#value").val();
+
+    attribute = attribute.trim();
+    value = value.trim();
+
+
+    const attributes = ["id", "title", "author", "genre", "pages"]
+    if(attributes.includes(attribute)) {
+        if(attribute === 'id') {
+            filterQuery += " AND " + attribute + "=" + value;
+        }
+        else if (attribute === 'pages') {
+            filterQuery += " AND " + attribute + "<" + value;
+        }
+        else {
+            filterQuery += " AND " + attribute + " LIKE \'%" + value + "%\'";
+        }
+        $.ajax({
+            url:'server/filterBooks.php',
+            type:'get',
+            data:{"query":filterQuery},
+            success:function (data) {
+                // console.log(data)
+                if(data !== "0 results") {
+                    emptyBooks();
+                    showBooks(data);
+                }
+                else {
+                    alert("No results")
+                }
+            }
+        });
+    }
+    else {
+        alert("Invalid attribute");
+    }
+}
+
+function resetFilter(event) {
+    filterQuery = ''
+    $.ajax({
+        url:'server/resetFilter.php',
+        type:'post',
+        success:function (response) {
+            if(response === "Filter reset successfully") {
+                alert(response)
+            }
+            else {
+                alert("Error: " + response)
+            }
+        }
+    });
+}
+
 function getBooks(event) {
     $.ajax({
         url:'server/getBooks.php',
@@ -152,10 +212,11 @@ function emptyBooks() {
 }
 
 function showBooks(data) {
+    // console.log(data)
     let innerHtml = "<table><tr><th>ID</th><th>Title</th><th>Author</th><th>Genre</th><th>Pages</th><th>Lent</th></tr>"
     let booksObj = JSON.parse(data);
 
-    console.log(booksObj);
+    // console.log(booksObj);
 
     for (let book of booksObj) {
         innerHtml += "<tr>";

@@ -23,8 +23,10 @@ class Controller
 
     private $getAllStmt;
 
-    private $lendStmt;
+
     private $getBookStatusStmt;
+
+    private $filterStmt = "SELECT * from Books WHERE 1=1";
 
 
     /**
@@ -44,63 +46,8 @@ class Controller
 //        $this->password = "";
 //        $this->dbname = "wp_labs";
 
-//        $this->prepareStatements();
     }
 
-
-//    public function prepareStatements()
-//    {
-////        $this->connection = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-////        if ($this->connection->connect_error) {
-////            die("Connection failed: " . $this->connection->connect_error);
-////        }
-//
-//        $this->connect();
-//
-//        // Add book
-//        $this->addStmt = $this->connection->prepare(
-//            "INSERT INTO Books (title, author, genre, pages)
-//                   VALUES (?, ?, ?, ?)");
-//        $this->addStmt->bind_param("sssi", $this->title, $this->author, $this->genre, $this->pages);
-//
-//        // Update title
-////        $this->updateTitleStmt = $this->connection->prepare(
-////            "UPDATE Books SET title=? where book_id=?"
-////        );
-////        $this->updateTitleStmt->bind_param("si", $this->newValue, $this->bookId);
-//
-//        // Update author
-//        $this->updateAuthorStmt = $this->connection->prepare(
-//            "UPDATE Books SET author=? where book_id=?"
-//        );
-//        $this->updateAuthorStmt->bind_param("si", $this->newValue, $this->bookId);
-//
-//        // Update genre
-//        $this->updateGenreStmt = $this->connection->prepare(
-//            "UPDATE Books SET genre=? where book_id=?"
-//        );
-//        $this->updateGenreStmt->bind_param("si", $this->newValue, $this->bookId);
-//
-//        // Update pages
-//        $this->updatePagesStmt = $this->connection->prepare(
-//            "UPDATE Books SET pages=? where book_id=?"
-//        );
-//        $this->updatePagesStmt->bind_param("ii", $this->newValue, $this->bookId);
-//
-//        // Delete book
-//        $this->deleteStmt = $this->connection->prepare(
-//            "DELETE FROM Books where book_id=?"
-//        );
-//        $this->deleteStmt->bind_param("i", $this->bookId);
-//
-//        $this->getAllStmt = $this->connection->prepare(
-//            "SELECT * FROM Books"
-//        );
-//
-////        $this->connection->close();
-//
-//        $this->disconnect();
-//    }
 
     private function connect()
     {
@@ -224,16 +171,16 @@ class Controller
         echo $id;
         echo $title;
         echo $author;
-        if($title != '') {
+        if ($title != '') {
             $result = $this->updateTitle($id, $title);
         }
-        if($author != '') {
+        if ($author != '') {
             $result = $this->updateAuthor($id, $author);
         }
-        if($genre != '') {
+        if ($genre != '') {
             $result = $this->updateGenre($id, $genre);
         }
-        if($pages != '') {
+        if ($pages != '') {
             $result = $this->updatePages($id, $pages);
         }
 
@@ -290,19 +237,17 @@ class Controller
         $this->getBookStatusStmt->execute();
         $result = $this->getBookStatusStmt->get_result();
         $row = $result->fetch_assoc();
-//        $row = mysqli_fetch_row($result);
         $lent = $row['lent'];
-        if ($lent == 0){
+
+        if ($lent == 0) {
             $newValue = 1;
             $result = $this->updateLent($id, $newValue);
             if ($result === true) {
                 echo "Book lent successfully";
-            }
-            else {
+            } else {
                 echo "Error while lending the book";
             }
-        }
-        else {
+        } else {
             echo "Book already lent";
         }
     }
@@ -320,19 +265,37 @@ class Controller
         $row = $result->fetch_assoc();
 //        $row = mysqli_fetch_row($result);
         $lent = $row['lent'];
-        if ($lent == 1){
+        if ($lent == 1) {
             $newValue = 0;
             $result = $this->updateLent($id, $newValue);
             if ($result === true) {
                 echo "Book returned successfully";
-            }
-            else {
+            } else {
                 echo "Error while returning the book";
             }
-        }
-        else {
+        } else {
             echo "Book already return";
         }
+    }
+
+    public function filterBooks($query)
+    {
+        $this->filterStmt = $this->filterStmt . $query;
+//        $this->filterStmt = htmlspecialchars($this->filterStmt);
+//        $this->filterStmt = stripslashes($this->filterStmt);
+//        $this->filterStmt = trim($this->filterStmt);
+
+        $this->connect();
+        $result = $this->connection->query($this->filterStmt);
+        $this->disconnect();
+
+        return $result;
+
+    }
+
+    public function resetFilter() {
+        $this->filterStmt = "SELECT * from Books WHERE 1=1";
+        return true;
     }
 }
 

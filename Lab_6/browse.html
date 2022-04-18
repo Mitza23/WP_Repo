@@ -14,6 +14,19 @@
 
     <button id="getAllBtn" onclick="getBooks(event)">Get Books</button>
 
+
+    <h3>Filter</h3>
+    <form id="filterForm">
+        <label for="attribute">Attribute</label>
+        <input type="text" id="attribute" name="attribute">
+
+        <label for="value">Value</label>
+        <input type="text" id="value" name="value">
+
+        <input id="submitFilter" type="submit" value="Filter" onclick="filterBooks(event)">
+        <input id="resetFilter" type="submit" value="Reset" onclick="resetFilter(event)">
+    </form>
+
     <div id="books">
 
     </div>
