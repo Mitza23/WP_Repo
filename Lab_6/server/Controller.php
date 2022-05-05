@@ -305,7 +305,7 @@ class Controller
             switch ($_GET['action']) {
 
                 case "getAll":
-                    $result = $this-> {$_GET['action']}();
+                    $result = $this->getAll();
                     $echoArray = array();
 
                     if ($result->num_rows > 0) {
@@ -320,6 +320,45 @@ class Controller
                     echo json_encode($echoArray);
                     break;
 
+                case "filterBooks":
+                    $query = $_GET['query'];
+
+                    $result = this->filterBooks($query);
+
+                    $echoArray = Array();
+
+                    if($result ->num_rows > 0) {
+                        while ($row = mysqli_fetch_row($result)) {
+                            $echoArray[] = $row;
+                        }
+                    }
+                    else {
+                        echo "0 results";
+                        return;
+                    }
+
+                    echo json_encode($echoArray);
+
+                    break;
+            }
+        }
+        else if (isset($_POST['action']) && !empty($_POST['action'])) {
+            switch ($_POST['action']) {
+                case "addBook":
+                    $title = $_POST['title'];
+                    $author = $_POST['author'];
+                    $genre = $_POST['genre'];
+                    $pages = $_POST['pages'];
+
+                    $this->addBook($title, $author, $genre, $pages);
+                    break;
+
+                case "deleteBook":
+                    $id = $_POST['id'];
+
+                    $this->deleteBook($id);
+                    break;
+
                 case "updateBook":
                     $id = $_POST['id'];
                     $title = $_POST['title'];
@@ -327,6 +366,23 @@ class Controller
                     $genre = $_POST['genre'];
                     $pages = $_POST['pages'];
 
+                    $this->updateBook($id, $title, $author, $genre, $pages);
+                    break;
+
+                case "lendBook":
+                    $id = $_POST['id'];
+
+                    $this->lendBook($id);
+                    break;
+
+                case "returnBook":
+                    $id = $_POST['id'];
+
+                    $this->returnBook($id);
+                    break;
+
+                case "resetFilter":
+                    $this.$this->resetFilter();
                     break;
             }
         }
@@ -334,3 +390,4 @@ class Controller
 }
 
 $controller = new Controller("localhost", "root", "", "wp_labs");
+$controller->service();
