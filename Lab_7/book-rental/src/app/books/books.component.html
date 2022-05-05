@@ -1,0 +1,12 @@
+<h2>List of books</h2>
+<table class="books">
+  <tr *ngFor="let book of books" (click)="onSelect(book)">
+    <td>{{book.book_id}}</td>
+    <td>{{book.title}}</td>
+    <td>{{book.author}}</td>
+    <td>{{book.genre}}</td>
+    <td>{{book.pages}}</td>
+    <td>{{book.lent}}</td>
+  </tr>
+</table>
+

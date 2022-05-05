@@ -293,9 +293,43 @@ class Controller
 
     }
 
-    public function resetFilter() {
+    public function resetFilter()
+    {
         $this->filterStmt = "SELECT * from Books WHERE 1=1";
         return true;
+    }
+
+    public function service()
+    {
+        if (isset($_GET['action']) && !empty($_GET['action'])) {
+            switch ($_GET['action']) {
+
+                case "getAll":
+                    $result = $this-> {$_GET['action']}();
+                    $echoArray = array();
+
+                    if ($result->num_rows > 0) {
+                        while ($row = mysqli_fetch_row($result)) {
+                            $echoArray[] = $row;
+                        }
+                    } else {
+                        echo "0 results";
+                        return;
+                    }
+
+                    echo json_encode($echoArray);
+                    break;
+
+                case "updateBook":
+                    $id = $_POST['id'];
+                    $title = $_POST['title'];
+                    $author = $_POST['author'];
+                    $genre = $_POST['genre'];
+                    $pages = $_POST['pages'];
+
+                    break;
+            }
+        }
     }
 }
 
