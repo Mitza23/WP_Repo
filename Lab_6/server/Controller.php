@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 class Controller
 {
     private $connection;
@@ -185,9 +187,9 @@ class Controller
         }
 
         if ($result === TRUE) {
-            echo "Book successfully updated";
+            $this->returnResult("Book successfully updated");
         } else {
-            echo "Error: <br>" . $this->connection->error;
+            $this->returnResult("Error: <br>" . $this->connection->error);
         }
     }
 
@@ -205,9 +207,9 @@ class Controller
 
 
         if ($result === TRUE) {
-            echo "Book successfully deleted";
+            $this->returnResult("Book successfully deleted");
         } else {
-            echo "Error: <br>" . $this->connection->error;
+            $this->returnResult("Error: <br>" . $this->connection->error);
         }
 
         $this->disconnect();
@@ -243,12 +245,12 @@ class Controller
             $newValue = 1;
             $result = $this->updateLent($id, $newValue);
             if ($result === true) {
-                echo "Book lent successfully";
+                $this->returnResult("Book lent successfully");
             } else {
-                echo "Error while lending the book";
+                $this->returnResult("Error while lending the book");
             }
         } else {
-            echo "Book already lent";
+            $this->returnResult("Book already lent");
         }
     }
 
@@ -269,12 +271,12 @@ class Controller
             $newValue = 0;
             $result = $this->updateLent($id, $newValue);
             if ($result === true) {
-                echo "Book returned successfully";
+                $this->returnResult("Book returned successfully");
             } else {
-                echo "Error while returning the book";
+                $this->returnResult("Error while returning the book");
             }
         } else {
-            echo "Book already return";
+            $this->returnResult("Book already return");
         }
     }
 
@@ -297,6 +299,10 @@ class Controller
     {
         $this->filterStmt = "SELECT * from Books WHERE 1=1";
         return true;
+    }
+
+    public function returnResult($result) {
+        echo "{\"result\" : \"$result\"}";
     }
 
     public function service()
@@ -323,7 +329,7 @@ class Controller
                 case "filterBooks":
                     $query = $_GET['query'];
 
-                    $result = this->filterBooks($query);
+                    $result = $this->filterBooks($query);
 
                     $echoArray = Array();
 
@@ -339,6 +345,47 @@ class Controller
 
                     echo json_encode($echoArray);
 
+                    break;
+
+                case "addBook":
+                    $title = $_GET['title'];
+                    $author = $_GET['author'];
+                    $genre = $_GET['genre'];
+                    $pages = $_GET['pages'];
+
+                    $this->addBook($title, $author, $genre, $pages);
+                    break;
+
+                case "deleteBook":
+                    $id = $_GET['id'];
+
+                    $this->deleteBook($id);
+                    break;
+
+                case "updateBook":
+                    $id = $_GET['id'];
+                    $title = $_GET['title'];
+                    $author = $_GET['author'];
+                    $genre = $_GET['genre'];
+                    $pages = $_GET['pages'];
+
+                    $this->updateBook($id, $title, $author, $genre, $pages);
+                    break;
+
+                case "lendBook":
+                    $id = $_GET['id'];
+
+                    $this->lendBook($id);
+                    break;
+
+                case "returnBook":
+                    $id = $_GET['id'];
+
+                    $this->returnBook($id);
+                    break;
+
+                case "resetFilter":
+                    $this.$this->resetFilter();
                     break;
             }
         }

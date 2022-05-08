@@ -1,6 +1,9 @@
 <h2>List of books</h2>
+
+<button class="btn" (click)="getBooks()">GetAll</button>
+
 <table class="books">
-  <tr *ngFor="let book of books" (click)="onSelect(book)">
+  <tr *ngFor="let book of books" [class.selected]="book === selected" (click)="onSelect(book)">
     <td>{{book.book_id}}</td>
     <td>{{book.title}}</td>
     <td>{{book.author}}</td>
@@ -9,4 +12,40 @@
     <td>{{book.lent}}</td>
   </tr>
 </table>
+
+
+<div *ngIf="selected">
+
+  <h4>Book:</h4>
+  <table>
+    <tr>
+      <td><label>Title: </label></td>
+      <td><input [attr.id]="'title_'+selected.title" [(ngModel)]="selected.title"></td>
+      <td><label>Author: </label></td>
+      <td><input [attr.id]="'author_'+selected.author" [(ngModel)]="selected.author"></td>
+      <td><label>Genre: </label></td>
+      <td><input [attr.id]="'genre_'+selected.genre" [(ngModel)]="selected.genre"></td>
+      <td><label>Pages: </label></td>
+      <td><input [attr.id]="'pages_'+selected.pages" [(ngModel)]="selected.pages"></td>
+      <td><button class="btn" (click)="updateBook(selected)">Update</button>
+      <td><button class="btn" (click)="deleteBook(selected)">Delete</button>
+      <td><button class="btn" (click)="lendBook(selected)">Lend</button>
+      <td><button class="btn" (click)="returnBook(selected)">Return</button>
+    </tr>
+  </table>
+
+</div>
+
+<label>Title:</label><input id="new_title" #title>
+<label>Author:</label><input id="new_author" #author>
+<label>Genre:</label><input id="new_genre" #genre>
+<label>Pages:</label><input id="new_pages" #pages>
+<button class="btn" (click)="addBook(title, author, genre, pages)">Add</button><br/>
+
+<label>Attribute:</label><input id="attribute" #attribute>
+<label>Value:</label><input id="value" #value>
+<button class="btn" (click)="filter(attribute, value)">Filter</button><br/>
+<button class="btn" (click)="resetFilter()">Reset filter</button><br/>
+
+<span class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</span>
 

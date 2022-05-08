@@ -19,14 +19,7 @@
 
 <div class="content" role="main">
 
-  <button (click)=OnClickShowStudents()>{{showStudentsCaption}}</button>
-  <button (click)=OnClickShowStudentsGrades()>{{showStudentsGradesCaption}}</button>
-  <div *ngIf="showStudentsPanel">
-    <app-books></app-books>
-  </div>
-  <div *ngIf="showStudentsGradesPanel">
-    <app-students-grades></app-students-grades>
-  </div>
+  <app-books></app-books>
 
 </div>
 

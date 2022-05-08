@@ -1,0 +1,37 @@
+.books tr:nth-child(even) {
+  background-color: #ff9999;
+}
+
+.books td {
+  min-width: 60px;
+  padding-left: 5px;
+  color: #090602;
+}
+
+
+.books tr:hover {
+  color: #2c3a41;
+  background-color: #e6e6e6;
+  left: .1em;
+  position: relative;
+}
+
+.books tr.selected {
+  background-color: #090602;
+  color: white;
+}
+
+.btn {
+  background: #33aa11;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  background: #33aa11;
+}
+
+tr {
+  height: 30px;
+}
+
