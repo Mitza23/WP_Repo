@@ -1,5 +1,5 @@
 <?php
-
+require 'Book.php';
 header("Access-Control-Allow-Origin: *");
 
 class Controller
@@ -316,7 +316,8 @@ class Controller
 
                     if ($result->num_rows > 0) {
                         while ($row = mysqli_fetch_row($result)) {
-                            $echoArray[] = $row;
+//                            $echoArray[] = $row;
+                            $echoArray[] = new Book($row[1], $row[2], $row[3], $row[4], $row[0], $row[5]);
                         }
                     } else {
                         echo "0 results";
@@ -324,6 +325,7 @@ class Controller
                     }
 
                     echo json_encode($echoArray);
+//                    echo json_encode(new Book("ana", "are", "mere", 1, 1, false));
                     break;
 
                 case "filterBooks":
@@ -335,7 +337,8 @@ class Controller
 
                     if($result ->num_rows > 0) {
                         while ($row = mysqli_fetch_row($result)) {
-                            $echoArray[] = $row;
+//                            $echoArray[] = $row;
+                            $echoArray[] = new Book($row[1], $row[2], $row[3], $row[4], $row[0], $row[5]);
                         }
                     }
                     else {

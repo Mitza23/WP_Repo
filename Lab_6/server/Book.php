@@ -1,20 +1,22 @@
 <?php
 
-class Book
+class Book implements JsonSerializable
 {
+    private $id;
     private $title;
     private $author;
     private $pages;
     private $genre;
     private $lent;
 
-    public function __construct($title, $author, $pages, $genre)
+    public function __construct($title, $author, $genre, $pages, $id=0, $lent=false)
     {
         $this->title = $title;
         $this->author = $author;
         $this->pages = $pages;
         $this->genre = $genre;
-        $this->lent = false;
+        $this->lent = $lent;
+        $this->id = $id;
     }
 
     public function lend()
@@ -116,5 +118,15 @@ class Book
         $this->lent = $lent;
     }
 
-
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'author' => $this->author,
+            'genre' => $this->genre,
+            'pages' => $this->pages,
+            'lent' => $this->lent
+        ];
+    }
 }
