@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 
-@CrossOrigin()
+@CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
 @RestController
 @RequestMapping("/profile")
 public class Controller {
@@ -29,7 +29,6 @@ public class Controller {
         return "Updated";
     }
 
-    @CrossOrigin()
     @DeleteMapping(path = "/delete/{id}")
     public String deleteProfile(@PathVariable Long id){
         profileRepository.deleteById(id);
@@ -41,7 +40,7 @@ public class Controller {
         return profileRepository.findAll();
     }
 
-    @PutMapping(path = "/filter")
+    @GetMapping(path = "/filter")
     public Iterable<Profile> filterProfiles(@RequestParam String attribute, @RequestParam String value) {
         if (Objects.equals(attribute, "name")){
             return profileRepository.findAllByNameContaining(value);
@@ -53,5 +52,10 @@ public class Controller {
             return profileRepository.findAllByAgeBefore(Integer.parseInt(value));
         }
         return null;
+    }
+
+    @PutMapping(path = "/resetFilter")
+    public void resetFilter() {
+        ;
     }
 }

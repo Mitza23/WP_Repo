@@ -60,19 +60,16 @@ export class ProfileService {
   }
 
   deleteProfile(id : number): Observable<unknown> {
-    const url = `${this.backendUrl}/${id}`;
+    const url = `${this.backendUrl}/delete/${id}`;
     return this.http.delete(url)
       .pipe(
         catchError(this.handleError('deleteProfile'))
       );
   }
 
-  filterProfiles(filterQuery: string) : Observable<Profile[]>{
+  filterProfiles(attribute: string, value: string) : Observable<Profile[]>{
     // @ts-ignore
-    return this.http.put<Profile[]>(this.backendUrl + '/filter',
-      {
-        "query": filterQuery
-      })
+    return this.http.get<Profile[]>(this.backendUrl + `/filter?attribute=${attribute}&value=${value}`)
       .pipe(
         catchError(this.handleError('filterProfiles'))
       );

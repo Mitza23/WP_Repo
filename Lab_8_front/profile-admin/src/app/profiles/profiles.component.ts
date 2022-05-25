@@ -51,8 +51,9 @@ export class ProfilesComponent implements OnInit {
     this.profileService.deleteProfile(id)
       .subscribe(
         response => {
-          let r: any = response;
-          this.errorMessage = r.result;
+          console.log("Success")
+        }, () => {
+          console.log("Error")
         }
       )
   }
@@ -75,16 +76,16 @@ export class ProfilesComponent implements OnInit {
     console.log(attribute)
     const attributes = ["id", "name", "email", "address", "picture", "age", "town"]
     if(attributes.includes(attribute)) {
-      if(attribute === 'id') {
-        this.filterQuery += " AND " + attribute + "=" + value;
-      }
-      else if (attribute === 'age') {
-        this.filterQuery += " AND " + attribute + "<" + value;
-      }
-      else {
-        this.filterQuery += " AND " + attribute + " LIKE \'%" + value + "%\'";
-      }
-      this.profileService.filterProfiles(this.filterQuery)
+      // if(attribute === 'id') {
+      //   this.filterQuery += " AND " + attribute + "=" + value;
+      // }
+      // else if (attribute === 'age') {
+      //   this.filterQuery += " AND " + attribute + "<" + value;
+      // }
+      // else {
+      //   this.filterQuery += " AND " + attribute + " LIKE \'%" + value + "%\'";
+      // }
+      this.profileService.filterProfiles(attribute, value)
         .subscribe(profiles => this.profiles = profiles);
     }
     else {
