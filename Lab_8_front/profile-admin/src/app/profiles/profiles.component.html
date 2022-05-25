@@ -1,0 +1,56 @@
+<h2>List of profiles</h2>
+
+<button class="btn" (click)="getProfiles()">GetAll</button>
+
+<table class="profiles">
+  <tr *ngFor="let profile of profiles" [class.selected]="profile === selected" (click)="onSelect(profile)">
+    <td>{{profile.id}}</td>
+    <td>{{profile.name}}</td>
+    <td>{{profile.email}}</td>
+    <td>{{profile.address}}</td>
+    <td>{{profile.age}}</td>
+    <td>{{profile.town}}</td>
+    <td><img src="../../assets/images/{{profile.picture}}" alt="{{profile.picture}}"></td>
+  </tr>
+</table>
+
+
+<div *ngIf="selected">
+
+  <h4>Book:</h4>
+  <table>
+    <tr>
+      <td><label>Name: </label></td>
+      <td><input [attr.id]="'name_'+selected.name" [(ngModel)]="selected.name"></td>
+      <td><label>Email: </label></td>
+      <td><input [attr.id]="'email_'+selected.email" [(ngModel)]="selected.email"></td>
+      <td><label>Address: </label></td>
+      <td><input [attr.id]="'address_'+selected.address" [(ngModel)]="selected.address"></td>
+      <td><label>Picture: </label></td>
+      <td><input [attr.id]="'picture_'+selected.picture" [(ngModel)]="selected.picture"></td>
+      <td><label>Age: </label></td>
+      <td><input [attr.id]="'age_'+selected.age" [(ngModel)]="selected.age"></td>
+      <td><label>Town: </label></td>
+      <td><input [attr.id]="'town_'+selected.town" [(ngModel)]="selected.town"></td>
+      <td><button class="btn" (click)="updateProfile(selected)">Update</button>
+      <td><button class="btn" (click)="deleteProfile(selected.id)">Delete</button>
+    </tr>
+  </table>
+
+</div>
+
+<label>Name:</label><input id="new_name" #name>
+<label>Email:</label><input id="new_email" #email>
+<label>Address:</label><input id="new_address" #address>
+<label>Picture:</label><input id="new_picture" #picture>
+<label>Age:</label><input id="new_age" #age>
+<label>Town:</label><input id="new_town" #town>
+<button class="btn" (click)="addProfile(name, email, address, picture, age, town)">Add</button><br/>
+
+<label>Attribute:</label><input id="attribute" #attribute>
+<label>Value:</label><input id="value" #value>
+<button class="btn" (click)="filter(attribute, value)">Filter</button><br/>
+<button class="btn" (click)="resetFilter()">Reset filter</button><br/>
+
+<span class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</span>
+
