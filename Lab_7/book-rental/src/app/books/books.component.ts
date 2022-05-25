@@ -28,7 +28,7 @@ export class BooksComponent implements OnInit {
   getBooks(): void {
     this.bookService.getBooks()
       .subscribe(books => this.books = books);
-    console.log(this.books.length)
+    console.log(this.books)
   }
 
   onSelect(book : Book): void {
@@ -38,7 +38,7 @@ export class BooksComponent implements OnInit {
 
   addBook(title: any, author: any, genre: any, pages: any): void {
     console.log(title.value);
-    let newBook : Book = {book_id : 0, title : title.value, author : author.value, genre : genre.value,
+    let newBook : Book = {id : 0, title : title.value, author : author.value, genre : genre.value,
       pages : pages.value, lent : false};
     this.bookService.addBook(newBook)
       .subscribe(response => {

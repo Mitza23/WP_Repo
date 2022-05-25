@@ -54,7 +54,7 @@ export class BookService {
 
   updateBook(book : Book): Observable<string> {
     return this.http.get<string>(this.backendUrl+'?action=updateBook'
-      + '&id=' + book.book_id
+      + '&id=' + book.id
       + '&title=' + book.title
       + '&author=' + book.author
       + '&genre=' + book.genre
@@ -66,7 +66,7 @@ export class BookService {
 
   deleteBook(book : Book): Observable<string> {
     return this.http.get<string>(this.backendUrl+'?action=deleteBook'
-      + '&id=' + book.book_id)
+      + '&id=' + book.id)
       .pipe(
         catchError(this.handleError<string>('deleteBook', ""))
       );
@@ -74,7 +74,7 @@ export class BookService {
 
   lendBook(book : Book): Observable<string> {
     return this.http.get<string>(this.backendUrl+'?action=lendBook'
-      + '&id=' + book.book_id)
+      + '&id=' + book.id)
       .pipe(
         catchError(this.handleError<string>('lendBook', ""))
       );
@@ -82,7 +82,7 @@ export class BookService {
 
   returnBook(book : Book): Observable<string> {
     return this.http.get<string>(this.backendUrl+'?action=returnBook'
-      + '&id=' + book.book_id)
+      + '&id=' + book.id)
       .pipe(
       catchError(this.handleError<string>('returnBook', ""))
       );

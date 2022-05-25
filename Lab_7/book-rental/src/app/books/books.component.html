@@ -4,7 +4,7 @@
 
 <table class="books">
   <tr *ngFor="let book of books" [class.selected]="book === selected" (click)="onSelect(book)">
-    <td>{{book.book_id}}</td>
+    <td>{{book.id}}</td>
     <td>{{book.title}}</td>
     <td>{{book.author}}</td>
     <td>{{book.genre}}</td>
