@@ -9,4 +9,6 @@ public interface ProfileRepository extends CrudRepository<Profile, Long> {
     public Iterable<Profile> findAllByNameContaining(String string);
     public  Iterable<Profile> findAllByEmailContaining(String string);
     public Iterable<Profile> findAllByAgeBefore(int age);
+
+    public Profile findFirstByUsername(String username);
 }

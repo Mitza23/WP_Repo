@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {Observable, of, Subscription} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import {Profile} from "./profile";
+import {Profile} from "../profile";
 import {query} from "@angular/animations";
-import {ProfilesComponent} from "./profiles/profiles.component";
-import {ProfileDTO} from "./model/ProfileDTO";
+import {ProfilesComponent} from "./profiles.component";
+import {ProfileDTO} from "../model/ProfileDTO";
 
 
 @Injectable({
@@ -31,26 +31,6 @@ export class ProfileService {
       );
   }
 
-  addProfile(name : string, email : string, address : string, picture : string, age : number, town : string): Observable<Profile> {
-    // @ts-ignore
-    // return this.http.post<Profile>(this.backendUrl+'/add',
-    //   {
-    //     "name": name,
-    //     "email": email,
-    //     "address": address,
-    //     "picture": picture,
-    //     "age": age,
-    //     "town": town
-    //   })
-    //   .pipe(
-    //     catchError(this.handleError('addProfile', name))
-    //   )
-    return this.http.post<Profile>(this.backendUrl+'/add',
-      new ProfileDTO(name, email, address, picture, age, town))
-      .pipe(
-        catchError(this.handleError('addProfile', name))
-      )
-  }
 
   updateProfile(profile : Profile): Observable<Profile> {
     return this.http.put<Profile>(this.backendUrl + '/update', profile)

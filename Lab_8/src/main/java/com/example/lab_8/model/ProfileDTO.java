@@ -11,6 +11,8 @@ import lombok.Setter;
 @Setter
 public class ProfileDTO {
 
+    private String username;
+    private String password;
     private String name;
     private String email;
     private String address;
@@ -19,6 +21,8 @@ public class ProfileDTO {
     private String town;
 
     public ProfileDTO(Profile profile) {
+        this.username = profile.getUsername();
+        this.password = profile.getPassword();
         this.name = profile.getName();
         this.email = profile.getEmail();
         this.address = profile.getAddress();

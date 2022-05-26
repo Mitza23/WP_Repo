@@ -14,6 +14,8 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String username;
+    private String password;
     private String name;
     private String email;
     private String address;
@@ -22,6 +24,8 @@ public class Profile {
     private String town;
 
     public Profile(ProfileDTO profile) {
+        this.username = profile.getUsername();
+        this.password = profile.getPassword();
         this.name = profile.getName();
         this.email = profile.getEmail();
         this.address = profile.getAddress();

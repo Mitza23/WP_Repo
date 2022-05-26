@@ -1,1 +1,22 @@
+<h1>Register</h1>
+
+<label>Username</label><input id="new_username" #username>
+<label>Password</label><input id="new_password" #password>
+<label>Name:</label><input id="new_name" #name>
+<label>Email:</label><input id="new_email" #email>
+<label>Address:</label><input id="new_address" #address>
+<label>Picture:</label><input id="new_picture" #picture>
+<label>Age:</label><input id="new_age" #age>
+<label>Town:</label><input id="new_town" #town>
+<button class="btn" (click)="addProfile(username, password, name, email, address, picture, age, town)">Register</button>
+
+<br>
+<br>
+<br>
+<br>
+
 <h1>LogIn</h1>
+
+<label>Username</label><input id="username" #old_username>
+<label>Password</label><input id="password" #old_password>
+<button class="btn" (click)="checkProfile(old_username, old_password)">LogIn</button>

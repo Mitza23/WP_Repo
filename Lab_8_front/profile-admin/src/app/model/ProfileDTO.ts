@@ -1,5 +1,6 @@
 export class ProfileDTO {
-  // id : number
+  username : string;
+  password : string;
   name : string;
   email : string;
   address : string;
@@ -8,8 +9,9 @@ export class ProfileDTO {
   town : string
 
 
-  constructor(name: string, email: string, address: string, picture: string, age: number, town: string) {
-    // this.id = id
+  constructor(username : string, password : string, name: string, email: string, address: string, picture: string, age: number, town: string) {
+    this.username = username;
+    this.password = password;
     this.name = name;
     this.email = email;
     this.address = address;

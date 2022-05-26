@@ -17,10 +17,11 @@ public class Controller {
     private ProfileRepository profileRepository;
 
     @PostMapping(path = "/add")
-    public String addProfile(@RequestBody ProfileDTO profileDTO){
+    public long addProfile(@RequestBody ProfileDTO profileDTO){
         Profile p = new Profile(profileDTO);
         profileRepository.save(p);
-        return "Saved";
+        System.out.println("New ID added: " + profileRepository.findFirstByUsername(profileDTO.getUsername()).getId());
+        return profileRepository.findFirstByUsername(profileDTO.getUsername()).getId();
     }
 
     @PutMapping(path = "/update")
@@ -54,8 +55,14 @@ public class Controller {
         return null;
     }
 
-    @PutMapping(path = "/resetFilter")
-    public void resetFilter() {
-        ;
+    @GetMapping(path = "/check")
+    public long checkUser(@RequestParam String username, @RequestParam String password) {
+//        System.out.println(username + " " + password);
+        Profile user = profileRepository.findFirstByUsername(username);
+        if(user != null) {
+            System.out.println(user.getId());
+            return user.getId();
+        }
+        return -1;
     }
 }
